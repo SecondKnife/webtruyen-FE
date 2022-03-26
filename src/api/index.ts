@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { Chapter, Truyen } from '../Components/types';
 
-const apiUrl = 'http://localhost:4000';
+const apiUrl =
+  !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
+    ? 'http://localhost:4000'
+    : 'https://web-truyen-123.herokuapp.com';
 
 export async function getPageTruyen(page: number) {
   try {
@@ -41,7 +44,9 @@ export async function getTruyen(slug: string) {
 
 export async function getChapter(slug: string, chapNumber: number | string) {
   try {
-    const response = await axios.get<Chapter>(`${apiUrl}/truyen-tranh/${slug}/${chapNumber}`);
+    const response = await axios.get<Chapter>(
+      `${apiUrl}/truyen-tranh/${slug}/${chapNumber}`
+    );
     return response.data;
   } catch (e) {
     console.log(e);
@@ -51,9 +56,11 @@ export async function getChapter(slug: string, chapNumber: number | string) {
 
 export async function searchByQuery(query: { title: string }) {
   try {
-    const response = await axios.get<Array<Pick<Truyen, "title" | "slug" | "cover">>>(`${apiUrl}/timkiem?title=${query.title}`);
+    const response = await axios.get<
+      Array<Pick<Truyen, 'title' | 'slug' | 'cover'>>
+    >(`${apiUrl}/timkiem?title=${query.title}`);
     return response.data;
-  } catch(e) {
+  } catch (e) {
     console.log(e);
     return null;
   }
