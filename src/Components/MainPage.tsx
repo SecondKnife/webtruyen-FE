@@ -49,7 +49,7 @@ const MainPage = () => {
     <Grid container spacing={4}>
       <Grid item container spacing={2} columnSpacing={2} xs={8}>
         {listTruyen.map((truyen) => (
-          <Grid key={truyen.slug} item xs={3}>
+          <Grid key={truyen.slug} item xs={2.4}>
             <Link
               to={`truyen-tranh/${truyen.slug}`}
               style={{ textDecoration: 'none' }}
